@@ -19,7 +19,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-	var socket = io.connect(window.location.origin);
+	var socket = io.connect('url_of_deployed_server');
 
 	socket.on('connect', function() {
 		socket.send('User has connected!');

@@ -1,5 +1,7 @@
 <html>
 <head>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
 	<link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 
@@ -12,7 +14,10 @@
 		h1 {text-align: center;}
 
 		p {text-align: center;}
-		div {text-align: center;}            
+		div {text-align: center;}      
+		div.b {text-align: right;}     
+		div.c {text-align: left;}     
+
 		</style>
 <h1 style="color:black;">Anonymous Group Chat Room</h1>
 
@@ -54,9 +59,26 @@ $(document).ready(function() {
 <button id="sendbutton">Send</button>
 </div>
 
+
+
+<div class="b">
+<form action="greet" method="post">
+	{% for message in get_flashed_messages() %}
+	
+	<p>{{ message }}</p>
+	{% endfor %}
+
+	<br>
+	<input type="text" name="name_input">
+	<br>
+	<input type="submit" value="GREET" id="greet">
+</form>
+</div.a>
+
+<div class="c">
 <audio controls id="player" autoplay loop>
 	<source src="audio.mp3" type="audio/mp3">
 </audio>
-
+</div.c>
 
 </body>

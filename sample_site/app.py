@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, flash
 from flask_socketio import SocketIO, send
 
 
@@ -18,7 +18,15 @@ def handleMessage(msg):
 	print('Message: ' + msg)
 	send(msg, broadcast=True)
 
+@app.route("/hello")
+def index():
+	flash("what's your name?")
+	return render_template("index.html")
 
+@app.route("/greet", methods=['POST', 'GET'])
+def greeter():
+	flash("Hi " + str(request.form['name_input']) + ", great to see you!")
+	return render_template("index.html")
 
 
 if __name__ == '__main__':

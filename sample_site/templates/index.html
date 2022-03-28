@@ -1,57 +1,12 @@
-<html>
-<head>
-	<link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-
-     <style>
-	* {	
-		font-family: "Rubik", "sans-serif";
+<div id="chat"></div>
+<input id="chat-input" type="text"> <button onclick="sendMessage()">Send Message</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+<script>
+	socket = io()
+	function sendMessage () {
+		socket.emit("message",document.getElementById("chat-input").value)
 	}
-		h5 {text-align: center;}
-		h3 {text-align: center;}
-		h1 {text-align: center;}
-
-		p {text-align: center;}
-		div {text-align: center;}            
-		</style>
-<h1 style="color:black;">Anonymous Group Chat Room</h1>
-
-<title>Chat Room</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ==" crossorigin="anonymous"></script>
-</head>
-<body>
- <body style="background-color:rgb(227, 211, 194);">
-
-<script type="text/javascript">
-$(document).ready(function() {
-
-	var socket = io.connect('http://127.0.0.1:5000');
-
-	socket.on('connect', function() {
-		socket.send('User has connected!');
-	});
-
-	socket.on('message', function(msg) {
-		$("#messages").append('<li>'+msg+'</li>');
-		console.log('Received message');
-	});
-
-	$('#sendbutton').on('click', function() {
-		socket.send($('#myMessage').val());
-		$('#myMessage').val('');
-	});
-
-});
-
-
+	socket.on("new_message",(data)=>{
+		document.getElementById("chat").innerHTML+="<br>"+data;
+	})
 </script>
-<div class="black">
-<ul id="messages"></ul>
-<input type="text" id="myMessage">
-
-
-<button id="sendbutton">Send</button>
-</div>
-
-</body>

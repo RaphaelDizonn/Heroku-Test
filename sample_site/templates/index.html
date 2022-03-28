@@ -1,21 +1,10 @@
 <html>
 <head>
-	<style>
-		h5 {text-align: center;}
-		h3 {text-align: center;}
-		h1 {text-align: center;}
-
-		p {text-align: center;}
-		div {text-align: center;}            
-		</style>
-<h1 style="color:black;">Anonymous Chat Room</h1>
-
 <title>Chat Room</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ==" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </head>
 <body>
-
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -36,15 +25,9 @@ $(document).ready(function() {
 	});
 
 });
-
-
 </script>
-<div class="black">
 <ul id="messages"></ul>
 <input type="text" id="myMessage">
-
-
 <button id="sendbutton">Send</button>
-</div>
-
 </body>
+</html>

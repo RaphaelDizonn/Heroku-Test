@@ -27,6 +27,35 @@
 </head>
 <body>
  <body style="background-color:rgb(227, 211, 194);">
+	<div class="black">
+		<ul id="messages"></ul>
+		<input type="text" id="myMessage">
+		
+		
+		<button id="sendbutton">Send</button>
+		</div>
+		
+		
+		
+		<div class="b">
+		<form action="greet" method="post">
+			{% for message in get_flashed_messages() %}
+			
+			<p>{{ message }}</p>
+			{% endfor %}
+		
+			<br>
+			<input type="text" name="name_input">
+			<br>
+			<input type="submit" value="GREET" id="greet">
+		</form>
+		</div.a>
+		
+		<div class="c">
+		<audio controls id="player" autoplay muted loop>
+			<source src="C:\Users\Raphael\Desktop\Heroku-Test\sample_site\templates\audio.mp3">
+		</audio>
+		</div.c>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -51,34 +80,6 @@ $(document).ready(function() {
 
 
 </script>
-<div class="black">
-<ul id="messages"></ul>
-<input type="text" id="myMessage">
 
-
-<button id="sendbutton">Send</button>
-</div>
-
-
-
-<div class="b">
-<form action="greet" method="post">
-	{% for message in get_flashed_messages() %}
-	
-	<p>{{ message }}</p>
-	{% endfor %}
-
-	<br>
-	<input type="text" name="name_input">
-	<br>
-	<input type="submit" value="GREET" id="greet">
-</form>
-</div.a>
-
-<div class="c">
-<audio controls id="player" autoplay loop>
-	<source src="audio.mp3" type="audio/mp3">
-</audio>
-</div.c>
 
 </body>

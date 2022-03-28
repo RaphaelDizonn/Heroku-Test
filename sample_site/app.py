@@ -11,7 +11,7 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 
 @app.route('/') 
 def home():
- return render_template('https://lab3testttt.herokuapp.com/')
+ return render_template('index.html')
 
 @socketio.on('message')
 def handleMessage(msg):

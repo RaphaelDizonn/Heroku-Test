@@ -1,27 +1,32 @@
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+<html>
+<head>
+<title>Chat Room</title>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+$(document).ready(function() {
 
-<style>
-    * {
-        font-family: "Rubik", "sans-serif";
-    }
+	var socket = io.connect('http://127.0.0.1:5000');
 
-    div {
-        text-align: center;
-        margin-top: 50px;
-    }
+	socket.on('connect', function() {
+		socket.send('User has connected!');
+	});
 
-    h1 {
-        color: red;
-        font-size: 40pt;
-    }
+	socket.on('message', function(msg) {
+		$("#messages").append('<li>'+msg+'</li>');
+		console.log('Received message');
+	});
 
-    p {
-        font-size: 24pt;
-    }
-</style>
+	$('#sendbutton').on('click', function() {
+		socket.send($('#myMessage').val());
+		$('#myMessage').val('');
+	});
 
-<div>
-    <h1>Welcome!</h1><br>
-    <p>This site has been visited {{ count }} times.</p>
-</div>
+});
+</script>
+<ul id="messages"></ul>
+<input type="text" id="myMessage">
+<button id="sendbutton">Send</button>
+</body>

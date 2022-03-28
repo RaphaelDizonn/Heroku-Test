@@ -1,42 +1,57 @@
-<!DOCTYPE html>
-<html lang="En">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title> Website </title>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
-  <script type="text/javascript" src="{{url_for('static', filename='require.js')}}"></script>
-  <script type="text/javascript" src="{{url_for('static', filename='script.js')}}"></script> <!-- loading a .js file while using flask -->
+	<link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+
+     <style>
+	* {	
+		font-family: "Rubik", "sans-serif";
+	}
+		h5 {text-align: center;}
+		h3 {text-align: center;}
+		h1 {text-align: center;}
+
+		p {text-align: center;}
+		div {text-align: center;}            
+		</style>
+<h1 style="color:black;">Anonymous Group Chat Room</h1>
+
+<title>Chat Room</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js" integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ==" crossorigin="anonymous"></script>
 </head>
+<body>
+ <body style="background-color:rgb(227, 211, 194);">
 
-<style>
-    * {
-        font-family: "Rubik", "sans-serif";
-    }
+<script type="text/javascript">
+$(document).ready(function() {
 
-    div {
-        text-align: center;
-        margin-top: 50px;
-    }
+	var socket = io.connect('http://127.0.0.1:5000');
 
-    h1 {
-        color: red;
-        font-size: 40pt;
-    }
+	socket.on('connect', function() {
+		socket.send('User has connected!');
+	});
 
-    p {
-        font-size: 24pt;
-    }
-</style>
+	socket.on('message', function(msg) {
+		$("#messages").append('<li>'+msg+'</li>');
+		console.log('Received message');
+	});
 
-<div>
-    <h1>Welcome!</h1><br>
-    <p>This site has been visited {{ count }} times.</p>
-    <p>You can type your messages here to other people.<br>{{ message }}</p>
-    <div class="column">
-        <div class="input">
-            <button onclick="message()"> Send a Message </button>
-            <nav class="strong"><p id="output">	</p> </nav>
-        </div>
-      </div>
+	$('#sendbutton').on('click', function() {
+		socket.send($('#myMessage').val());
+		$('#myMessage').val('');
+	});
+
+});
+
+
+</script>
+<div class="black">
+<ul id="messages"></ul>
+<input type="text" id="myMessage">
+
+
+<button id="sendbutton">Send</button>
 </div>
+
+</body>

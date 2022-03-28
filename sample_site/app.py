@@ -1,47 +1,26 @@
 from flask import Flask, render_template
+from flask_socketio import SocketIO, send
+
+
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '39ccdde2930edbf62e9efcb5bc318da5dc8b58d9978de52c3d43cda83fbd3a49'
 
 
-@app.route("/")
-def index():
+socketio = SocketIO(app, cors_allowed_origins='*')
 
-    message = []
+@app.route('/') 
+def home():
+ return render_template('index.html')
 
-    # Load current count
-    f = open("count.txt", "r")
-    count = int(f.read())
-    f.close()
-
-    # Increment the count
-    count += 1
-
-    # Overwrite the count
-    f = open("count.txt", "w")
-    f.write(str(count))
-    f.close()
-
-    n = open("tempfile.txt", "r")
-    message = n.readlines()
-    n.close()
-    l = 0
-    # print new message content
-    for line in message:
-        l += 1
-        # message.append(line.strip())
-        print("Line{}: {}".format(l, line.strip()))
-
-    # with open("newfile.txt", "a+") as n:
-    #     # Strips the newline character
-    #     for line in Lines:
-    #         l += 1
-    #         print("Line{}: {}".format(l, line.strip()))
-    #         n.write(str(message))
-    #     message = Lines[0]
-
-    # Render HTML with count variable
-    return render_template("index.html", count=count, message=message)
+@socketio.on('message')
+def handleMessage(msg):
+	print('Message: ' + msg)
+	send(msg, broadcast=True)
 
 
-if __name__ == "__main__":
-    app.run()
+
+
+if __name__ == '__main__':
+	socketio.run(app)
+
